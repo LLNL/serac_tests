@@ -1,4 +1,4 @@
-# <img src="/share/serac/logo/serac-logo-blue.png?raw=true" width="150" alt="Serac"/>
+# <img src="https://github.com/llnl/serac/blob/develop/share/serac/logo/serac-logo-blue.png?raw=true" width="150" alt="Serac"/>
 
 [![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)](./LICENSE)
 
