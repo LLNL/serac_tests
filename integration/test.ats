@@ -51,10 +51,6 @@ define(serac_test_scripts_dir=serac_test_scripts_dir)
 serac_tolerance_checker = os.path.join(serac_test_scripts_dir, "tolerance_test.py")
 define(serac_tolerance_checker=serac_tolerance_checker)
 
-# Path to baseline directory
-serac_baseline_dir = os.path.join(serac_repo_dir, "tests", "integration", "baselines")
-define(serac_baseline_dir=serac_baseline_dir)
-
 
 #
 # Wrapper for ATS's test()/testif()
@@ -64,9 +60,10 @@ def tolerance_test(name, input_file, np, tolerance):
     # Note: Paths in this function are relative to where the function is called from
     #       not this file.
 
+    output_dir = os.path.abspath(name)
+
     # Add driver test
-    output_dir = os.path.abspath("output/{0}".format(name))
-    test_args = "-i {0} -o output/{1}".format(input_file, name)
+    test_args = "-i {0} -o {1}".format(input_file, output_dir)
     my_test = test(
          executable=serac_path, 
          clas=test_args,
@@ -75,7 +72,7 @@ def tolerance_test(name, input_file, np, tolerance):
          sandbox=False)
 
     # Add checker for driver test
-    baseline_summary_file = os.path.abspath("{0}/{1}.json".format(serac_baseline_dir, name))
+    baseline_summary_file = os.path.abspath("{0}.json".format(name))
     test_summary_file = "{0}/summary.json".format(output_dir)
 
     checker_args  = "--baseline={0} --test={1}".format(baseline_summary_file, test_summary_file)
