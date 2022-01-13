@@ -59,6 +59,7 @@ define(serac_tolerance_checker=serac_tolerance_checker)
 
 def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
     """
+    # _serac_tolerance_test_start
     Adds a test and dependent tolerance check for the given arguments
 
     Parameters
@@ -74,7 +75,9 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
 
     Note: Paths in this function are relative to where the function is called from
           not this file.
+    # _serac_tolerance_test_end
     """
+
 
     output_dir = os.path.abspath(name)
 
