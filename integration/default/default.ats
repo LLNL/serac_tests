@@ -6,11 +6,8 @@
 ##############################################################################
 
 tolerance_test(name="default_serial",
-     input_file="{0}/default.lua".format(serac_input_files_dir),
-     np=1,
-     tolerance=0.00001)
+     input_file="{0}/default.lua".format(serac_input_files_dir))
 
 tolerance_test(name="default_parallel",
      input_file="{0}/default.lua".format(serac_input_files_dir),
-     np=2,
-     tolerance=0.00001)
+     num_mpi_tasks=2)

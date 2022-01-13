@@ -56,9 +56,25 @@ define(serac_tolerance_checker=serac_tolerance_checker)
 # Wrapper for ATS's test()/testif()
 #
 
-def tolerance_test(name, input_file, np, tolerance):
-    # Note: Paths in this function are relative to where the function is called from
-    #       not this file.
+
+def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
+    """
+    Adds a test and dependent tolerance check for the given arguments
+
+    Parameters
+    ----------
+    name : str
+        The name of the test
+    input_file : str
+        Path to the input file
+    num_mpi_tasks : int, optional
+        The number of MPI proce (default is 1)
+    tolerance : int, optional
+        The number of MPI proce (default is 0.00001)
+
+    Note: Paths in this function are relative to where the function is called from
+          not this file.
+    """
 
     output_dir = os.path.abspath(name)
 
@@ -68,8 +84,7 @@ def tolerance_test(name, input_file, np, tolerance):
          executable=serac_path, 
          clas=test_args,
          label=name,
-         np=np,
-         sandbox=False)
+         np=num_mpi_tasks)
 
     # Add checker for driver test
     baseline_summary_file = os.path.abspath("{0}.json".format(name))
