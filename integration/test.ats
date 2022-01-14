@@ -69,9 +69,9 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
     input_file : str
         Path to the input file
     num_mpi_tasks : int, optional
-        The number of MPI proce (default is 1)
+        The number of MPI tasks (default is 1)
     tolerance : int, optional
-        The number of MPI proce (default is 0.00001)
+        The allowed tolerance in test results (default is 0.00001)
 
     Note: Paths in this function are relative to where the function is called from
           not this file.
