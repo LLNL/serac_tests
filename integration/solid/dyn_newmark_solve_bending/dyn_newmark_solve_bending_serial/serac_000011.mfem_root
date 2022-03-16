@@ -1,0 +1,45 @@
+{
+  "dsets": {
+    "main": {
+      "cycle": 11,
+      "domains": 1,
+      "fields": {
+        "adjoint_displacement": {
+          "path": "serac_000011/adjoint_displacement.%06d",
+          "tags": {
+            "assoc": "nodes",
+            "comps": "2",
+            "lod": "1"
+          }
+        },
+        "displacement": {
+          "path": "serac_000011/displacement.%06d",
+          "tags": {
+            "assoc": "nodes",
+            "comps": "2",
+            "lod": "1"
+          }
+        },
+        "velocity": {
+          "path": "serac_000011/velocity.%06d",
+          "tags": {
+            "assoc": "nodes",
+            "comps": "2",
+            "lod": "1"
+          }
+        }
+      },
+      "mesh": {
+        "format": "0",
+        "path": "serac_000011/mesh.%06d",
+        "tags": {
+          "max_lods": "32",
+          "spatial_dim": "2",
+          "topo_dim": "2"
+        }
+      },
+      "time": 0.052855008869805174,
+      "time_step": 0
+    }
+  }
+}

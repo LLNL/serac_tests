@@ -108,6 +108,6 @@ define(tolerance_test=tolerance_test)
 # Add individual tests found in subdirectories
 #
 
-test_files = glob.glob(os.path.join(serac_integration_test_dir, "*", "*.ats"))
+test_files = glob.glob(os.path.join(serac_integration_test_dir, "*/*", "*.ats"))
 for test_file in test_files:
     source(test_file)
