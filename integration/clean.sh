@@ -4,7 +4,7 @@
 ORIG_DIR=$(pwd) # should be ./serac_repo/tests/integration
 
 # for each type,
-TYPES=(meshing solid thermal_solid thermal_conduction)
+TYPES=(solid thermal_solid thermal_conduction)
 for _type in ${TYPES[@]}
     do
 

@@ -3,14 +3,12 @@
 ORIG_DIR=$(pwd) # should be ./serac_repo/tests/integration
 
 # for each type,
-TYPES=(meshing solid thermal_solid thermal_conduction)
-for _type in ${TYPES[@]}
-    do
+TYPES=(solid thermal_solid thermal_conduction)
+for _type in ${TYPES[@]} ; do
 
     # for each test in directory "t"
     cd "./${_type}"
-    for t in $(ls --color=no) 
-        do
+    for t in $(ls --color=no) ; do
 
         echo "Writing ats file for ${_type}/${t}..."
 
@@ -36,7 +34,6 @@ for _type in ${TYPES[@]}
         echo "    input_file=\"${INPUT_FILE}\".format(serac_input_files_dir)," >> ${ATS_FILE}
         echo "    num_mpi_tasks=2)" >> ${ATS_FILE}
         echo "" >> ${ATS_FILE}
-
     done
 
     cd ${ORIG_DIR}
