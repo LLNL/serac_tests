@@ -1,0 +1,9 @@
+FiniteElementSpace
+FiniteElementCollection: H1_2D_P1
+VDim: 2
+Ordering: 1
+
+0 1
+0 1
+0 1
+0 1

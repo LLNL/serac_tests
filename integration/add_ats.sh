@@ -1,12 +1,5 @@
 #! /bin/bash
 
-if [ $# -ne 1 ] ; then
-    echo "./add_ats.sh <SHOULD_CLEAN>"
-    exit 1
-fi
-
-SHOULD_CLEAN=$1 # remove non-ats, non-baseline files
-
 ORIG_DIR=$(pwd) # should be ./serac_repo/tests/integration
 
 # for each type,
@@ -41,12 +34,6 @@ for _type in ${TYPES[@]} ; do
         echo "    input_file=\"${INPUT_FILE}\".format(serac_input_files_dir)," >> ${ATS_FILE}
         echo "    num_mpi_tasks=2)" >> ${ATS_FILE}
         echo "" >> ${ATS_FILE}
-
-        # remove the extra files
-        if [ ${SHOULD_CLEAN} -ne 0 ] ; then
-            rm -rf "${t}/${t}_serial"
-            rm -rf "${t}/${t}_parallel"
-        fi 
     done
 
     cd ${ORIG_DIR}

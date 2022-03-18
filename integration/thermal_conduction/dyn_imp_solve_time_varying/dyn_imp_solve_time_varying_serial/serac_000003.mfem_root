@@ -1,0 +1,29 @@
+{
+  "dsets": {
+    "main": {
+      "cycle": 3,
+      "domains": 1,
+      "fields": {
+        "temperature": {
+          "path": "serac_000003/temperature.%06d",
+          "tags": {
+            "assoc": "nodes",
+            "comps": "1",
+            "lod": "2"
+          }
+        }
+      },
+      "mesh": {
+        "format": "0",
+        "path": "serac_000003/mesh.%06d",
+        "tags": {
+          "max_lods": "32",
+          "spatial_dim": "2",
+          "topo_dim": "2"
+        }
+      },
+      "time": 1.5,
+      "time_step": 0
+    }
+  }
+}
