@@ -1,4 +1,5 @@
 #! /bin/bash
+# desc: generates new ats files for each test based off current file structure
 
 ORIG_DIR=$(pwd) # should be ./serac_repo/tests/integration
 

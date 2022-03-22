@@ -891,10 +891,10 @@
         "_inlet_struct_collection": 1,
         "_inlet_collection_indices": 
         [
-          "thermal_conduction/boundary_conds/temperature_1",
-          "thermal_conduction/boundary_conds/temperature_2"
+          "thermal_conduction/boundary_conds/temperature_2",
+          "thermal_conduction/boundary_conds/temperature_1"
         ],
-        "temperature_1": 
+        "temperature_2": 
         {
           "InletType": "Container",
           "description": "Container of boundary conditions",
@@ -912,7 +912,7 @@
               },
               "_inlet_collection_indices": 
               [
-                "thermal_conduction/boundary_conds/temperature_1/attrs/1"
+                "thermal_conduction/boundary_conds/temperature_2/attrs/1"
               ]
             }
           },
@@ -985,7 +985,7 @@
             }
           }
         },
-        "temperature_2": 
+        "temperature_1": 
         {
           "InletType": "Container",
           "description": "Container of boundary conditions",
@@ -1003,7 +1003,7 @@
               },
               "_inlet_collection_indices": 
               [
-                "thermal_conduction/boundary_conds/temperature_2/attrs/1"
+                "thermal_conduction/boundary_conds/temperature_1/attrs/1"
               ]
             }
           },

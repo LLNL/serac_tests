@@ -1225,11 +1225,11 @@
           "_inlet_struct_collection": 1,
           "_inlet_collection_indices": 
           [
-            "thermal_solid/solid/boundary_conds/displacement_y",
+            "thermal_solid/solid/boundary_conds/displacement_z",
             "thermal_solid/solid/boundary_conds/displacement_x",
-            "thermal_solid/solid/boundary_conds/displacement_z"
+            "thermal_solid/solid/boundary_conds/displacement_y"
           ],
-          "displacement_y": 
+          "displacement_z": 
           {
             "InletType": "Container",
             "description": "Container of boundary conditions",
@@ -1243,11 +1243,11 @@
                 "1": 
                 {
                   "InletType": "Field",
-                  "value": 2
+                  "value": 3
                 },
                 "_inlet_collection_indices": 
                 [
-                  "thermal_solid/solid/boundary_conds/displacement_y/attrs/1"
+                  "thermal_solid/solid/boundary_conds/displacement_z/attrs/1"
                 ]
               }
             },
@@ -1269,7 +1269,7 @@
             {
               "InletType": "Field",
               "description": "The vector component to which the scalar coefficient should be applied",
-              "value": 1,
+              "value": 2,
               "retrieval_status": 0
             },
             "constant": 
@@ -1415,7 +1415,7 @@
               }
             }
           },
-          "displacement_z": 
+          "displacement_y": 
           {
             "InletType": "Container",
             "description": "Container of boundary conditions",
@@ -1429,11 +1429,11 @@
                 "1": 
                 {
                   "InletType": "Field",
-                  "value": 3
+                  "value": 2
                 },
                 "_inlet_collection_indices": 
                 [
-                  "thermal_solid/solid/boundary_conds/displacement_z/attrs/1"
+                  "thermal_solid/solid/boundary_conds/displacement_y/attrs/1"
                 ]
               }
             },
@@ -1455,7 +1455,7 @@
             {
               "InletType": "Field",
               "description": "The vector component to which the scalar coefficient should be applied",
-              "value": 2,
+              "value": 1,
               "retrieval_status": 0
             },
             "constant": 

@@ -348,10 +348,10 @@
         "_inlet_struct_collection": 1,
         "_inlet_collection_indices": 
         [
-          "solid/boundary_conds/displacement_x",
-          "solid/boundary_conds/displacement_y"
+          "solid/boundary_conds/displacement_y",
+          "solid/boundary_conds/displacement_x"
         ],
-        "displacement_x": 
+        "displacement_y": 
         {
           "InletType": "Container",
           "description": "Container of boundary conditions",
@@ -365,11 +365,11 @@
               "1": 
               {
                 "InletType": "Field",
-                "value": 1
+                "value": 2
               },
               "_inlet_collection_indices": 
               [
-                "solid/boundary_conds/displacement_x/attrs/1"
+                "solid/boundary_conds/displacement_y/attrs/1"
               ]
             }
           },
@@ -391,7 +391,7 @@
           {
             "InletType": "Field",
             "description": "The vector component to which the scalar coefficient should be applied",
-            "value": 0,
+            "value": 1,
             "retrieval_status": 0
           },
           "constant": 
@@ -443,7 +443,7 @@
             }
           }
         },
-        "displacement_y": 
+        "displacement_x": 
         {
           "InletType": "Container",
           "description": "Container of boundary conditions",
@@ -457,11 +457,11 @@
               "1": 
               {
                 "InletType": "Field",
-                "value": 2
+                "value": 1
               },
               "_inlet_collection_indices": 
               [
-                "solid/boundary_conds/displacement_y/attrs/1"
+                "solid/boundary_conds/displacement_x/attrs/1"
               ]
             }
           },
@@ -483,7 +483,7 @@
           {
             "InletType": "Field",
             "description": "The vector component to which the scalar coefficient should be applied",
-            "value": 1,
+            "value": 0,
             "retrieval_status": 0
           },
           "constant": 
