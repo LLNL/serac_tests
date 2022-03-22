@@ -1,3 +1,2 @@
-/integration/*/*/*_datacoll_*
-/integration/*/*/serac_input_values.json
-/integration/*/*/summary.json
+/integration/*/*/*_output
+/integration/default/*_output
