@@ -19,7 +19,16 @@ for _type in ${TYPES[@]} ; do
         # remove .lua from file name
         t=$(echo $t | awk -F "." '{print $1}')
 
-        echo "Writing ats file for ${_type}/${t}..."
+        if [ $t == "dyn_amgx_solve" ] ||
+           [ $t == "static_amgx_solve" ] ||
+           [ $t == "static_reaction_exact" ] ; then
+            
+            echo "Skipping $t!"
+            
+            continue
+        fi
+
+        #echo "Writing ats file for ${_type}/${t}..."
 
         cd ${ORIG_DIR}
 
