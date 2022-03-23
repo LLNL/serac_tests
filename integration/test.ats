@@ -84,7 +84,7 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
         # Add driver test
         test_args = "-i {0} -o {1}".format(input_file, output_dir)
         my_test = test(
-            executable=serac_path, 
+            executable=serac_path,
             clas=test_args,
             label=name,
             np=num_mpi_tasks)
@@ -94,7 +94,7 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
             baseline_summary_file, test_summary_file)
         checker_args += " --tolerance={0}".format(tolerance)
         my_checker = testif(
-            my_test, 
+            my_test,
             executable=serac_tolerance_checker,
             clas=checker_args,
             label=name,
@@ -105,7 +105,7 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
             print("Rebaselining {0}".format(name))
             shutil.copyfile(test_summary_file, baseline_summary_file)
         else:
-            print("Warning: tried to copy test file ({0}) that doesn't exist".format(
+            print("Warning: tried to copy test file that doesn't exist:\n{0}".format(
                 test_summary_file))
 define(tolerance_test=tolerance_test)
 
@@ -114,7 +114,6 @@ define(tolerance_test=tolerance_test)
 #
 
 test_files = glob.glob(os.path.join(serac_integration_test_dir, "*/*", "*.ats"))
-#test_files = glob.glob(os.path.join(serac_integration_test_dir, "default", "*.ats"))
 print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
 for test_file in test_files:
     source(test_file)
