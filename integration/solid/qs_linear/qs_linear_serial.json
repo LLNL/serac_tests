@@ -1,0 +1,38 @@
+
+{
+  "user_name": "meemee",
+  "host_name": "quartz135",
+  "mpi_rank_count": 1,
+  "curves": 
+  {
+    "t": 1.0,
+    "velocity": 
+    {
+      "l1norms": 0.0,
+      "l2norms": 0.0,
+      "linfnorms": 0.0,
+      "avgs": 0.0,
+      "mins": 0.0,
+      "maxs": 0.0
+    },
+    "displacement": 
+    {
+      "l1norms": 6.83424614519107,
+      "l2norms": 2.97873402019221,
+      "linfnorms": 2.03592820985111,
+      "avgs": -0.383826322024814,
+      "mins": -2.04157635385838,
+      "maxs": 0.191269164117233
+    },
+    "adjoint_displacement": 
+    {
+      "l1norms": 0.0,
+      "l2norms": 0.0,
+      "linfnorms": 0.0,
+      "avgs": 0.0,
+      "mins": 0.0,
+      "maxs": 0.0
+    }
+  },
+  "sidre_group_name": "serac_summary"
+}

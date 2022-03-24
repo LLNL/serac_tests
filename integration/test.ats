@@ -20,7 +20,7 @@ glue(keep=True)
 #
 
 # Check for required environment variables
-for var in ["ATS_SERAC_BIN_DIR", "ATS_SERAC_REPO_DIR"]:
+for var in ["ATS_SERAC_BIN_DIR", "ATS_SERAC_REPO_DIR", "ATS_SERAC_REBASELINE"]:
     if not os.environ.get(var):
         print("ERROR: Required environment variable not found: {0}".format(var))
         sys.exit(1)
@@ -28,8 +28,8 @@ for var in ["ATS_SERAC_BIN_DIR", "ATS_SERAC_REPO_DIR"]:
 # Helpful directories
 serac_bin_dir = os.environ.get("ATS_SERAC_BIN_DIR")
 serac_repo_dir = os.environ.get("ATS_SERAC_REPO_DIR")
+should_rebaseline = bool(int(os.environ.get("ATS_SERAC_REBASELINE")))
 serac_integration_test_dir = os.path.join(serac_repo_dir, "tests", "integration")
-
 
 #
 # Add variables to be used in individually sourced test files with define()
@@ -51,11 +51,9 @@ define(serac_test_scripts_dir=serac_test_scripts_dir)
 serac_tolerance_checker = os.path.join(serac_test_scripts_dir, "tolerance_test.py")
 define(serac_tolerance_checker=serac_tolerance_checker)
 
-
 #
 # Wrapper for ATS's test()/testif()
 #
-
 
 def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
     """
@@ -78,36 +76,45 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
     # _serac_tolerance_test_end
     """
 
-
-    output_dir = os.path.abspath(name)
-
-    # Add driver test
-    test_args = "-i {0} -o {1}".format(input_file, output_dir)
-    my_test = test(
-         executable=serac_path, 
-         clas=test_args,
-         label=name,
-         np=num_mpi_tasks)
-
-    # Add checker for driver test
-    baseline_summary_file = os.path.abspath("{0}.json".format(name))
+    output_dir = os.path.abspath(name) + "_output"
     test_summary_file = "{0}/summary.json".format(output_dir)
+    baseline_summary_file = os.path.abspath("{0}.json".format(name))
 
-    checker_args  = "--baseline={0} --test={1}".format(baseline_summary_file, test_summary_file)
-    checker_args += " --tolerance={0}".format(tolerance)
-    my_checker = testif(
-               my_test,
-               executable=serac_tolerance_checker,
-               clas=checker_args,
-               label=name,
-               nosrun=True)
+    if not should_rebaseline:
+        # Add driver test
+        test_args = "-i {0} -o {1}".format(input_file, output_dir)
+        my_test = test(
+            executable=serac_path,
+            clas=test_args,
+            label=name,
+            np=num_mpi_tasks)
+
+        # Add checker for driver test
+        checker_args  = "--baseline={0} --test={1}".format(
+            baseline_summary_file, test_summary_file)
+        checker_args += " --tolerance={0}".format(tolerance)
+        my_checker = testif(
+            my_test,
+            executable=serac_tolerance_checker,
+            clas=checker_args,
+            label=name,
+            nosrun=True)
+    else:
+        # Rebaseline
+        if os.path.exists(test_summary_file):
+            print("Rebaselining {0}".format(name))
+            shutil.copyfile(test_summary_file, baseline_summary_file)
+        else:
+            print("Warning: tried to copy test file that doesn't exist:\n{0}".format(
+                test_summary_file))
 define(tolerance_test=tolerance_test)
-
 
 #
 # Add individual tests found in subdirectories
 #
 
-test_files = glob.glob(os.path.join(serac_integration_test_dir, "*", "*.ats"))
+test_files = glob.glob(os.path.join(serac_integration_test_dir, "*/*", "*.ats"))
+print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
 for test_file in test_files:
     source(test_file)
+print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
