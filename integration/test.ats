@@ -51,6 +51,10 @@ define(serac_test_scripts_dir=serac_test_scripts_dir)
 serac_tolerance_checker = os.path.join(serac_test_scripts_dir, "tolerance_test.py")
 define(serac_tolerance_checker=serac_tolerance_checker)
 
+# Tolerance json file(s) directory
+serac_tolerance_json = os.path.join(serac_integration_test_dir, "tolerances")
+define(serac_tolerance_json=serac_tolerance_json)
+
 #
 # Wrapper for ATS's test()/testif()
 #
@@ -89,10 +93,16 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
             label=name,
             np=num_mpi_tasks)
 
-        # Add checker for driver test
+        # Add checker args
         checker_args  = "--baseline={0} --test={1}".format(
             baseline_summary_file, test_summary_file)
-        checker_args += " --tolerance={0}".format(tolerance)
+
+        if ".json" in str(tolerance):
+            checker_args += " --tolerance-file={0}".format(tolerance)
+        else:
+            checker_args += " --tolerance={0}".format(tolerance)
+
+        # Add checker for driver test
         my_checker = testif(
             my_test,
             executable=serac_tolerance_checker,

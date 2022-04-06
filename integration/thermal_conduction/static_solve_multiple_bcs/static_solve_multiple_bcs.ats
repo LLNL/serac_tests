@@ -6,9 +6,12 @@
 ##############################################################################
 
 tolerance_test(name="static_solve_multiple_bcs_serial",
-    input_file="{0}/tests/thermal_conduction/static_solve_multiple_bcs.lua".format(serac_input_files_dir))
+    input_file="{0}/tests/thermal_conduction/static_solve_multiple_bcs.lua".format(serac_input_files_dir),
+    num_mpi_tasks=1,
+    tolerance="default:0.1::velocity:0.25")
 
 tolerance_test(name="static_solve_multiple_bcs_parallel",
     input_file="{0}/tests/thermal_conduction/static_solve_multiple_bcs.lua".format(serac_input_files_dir),
-    num_mpi_tasks=2)
+    num_mpi_tasks=2,
+    tolerance="default:0.1::velocity:0.25")
 

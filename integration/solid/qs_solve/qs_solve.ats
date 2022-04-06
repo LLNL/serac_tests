@@ -6,9 +6,12 @@
 ##############################################################################
 
 tolerance_test(name="qs_solve_serial",
-    input_file="{0}/tests/solid/qs_solve.lua".format(serac_input_files_dir))
+    input_file="{0}/tests/solid/qs_solve.lua".format(serac_input_files_dir),
+    num_mpi_tasks=1,
+    tolerance="default:0.1::velocity:0.25")
 
 tolerance_test(name="qs_solve_parallel",
     input_file="{0}/tests/solid/qs_solve.lua".format(serac_input_files_dir),
-    num_mpi_tasks=2)
+    num_mpi_tasks=2,
+    tolerance="default:0.1::velocity:0.25")
 
