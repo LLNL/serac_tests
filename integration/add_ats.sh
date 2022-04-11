@@ -45,6 +45,7 @@ for _type in ${TYPES[@]} ; do
         # Skip tests that currently fail
         if [ $t == "dyn_amgx_solve" ] ||
            [ $t == "static_amgx_solve" ] ||
+           #[ $t == "qs_attribute_solve" ] ||
            [ $t == "static_reaction_exact" ] ; then
             echo "Skipping $t!"
             continue
