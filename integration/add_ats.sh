@@ -28,8 +28,7 @@ for _type in ${TYPES[@]} ; do
 
         # skip tests that currently fail
         if [ $t == "dyn_amgx_solve" ] ||
-           [ $t == "static_amgx_solve" ] ||
-           [ $t == "static_reaction_exact" ] ; then
+           [ $t == "static_amgx_solve" ] ; then
 
             echo "Skipping $t!"
 
