@@ -9,6 +9,6 @@ tolerance_test(name="dyn_newmark_solve_bending_first_serial",
     input_file="{0}/tests/solid/dyn_newmark_solve_bending_first.lua".format(serac_input_files_dir))
 
 tolerance_test(name="dyn_newmark_solve_bending_first_parallel",
-    input_file="{0}/tests/solid/dyn_newmark_solve_bending_first.lua".format(serac_input_files_dir)
+    input_file="{0}/tests/solid/dyn_newmark_solve_bending_first.lua".format(serac_input_files_dir),
     num_mpi_tasks=2)
 

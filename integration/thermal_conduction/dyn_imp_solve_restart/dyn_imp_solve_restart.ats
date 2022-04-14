@@ -9,6 +9,6 @@ tolerance_test(name="dyn_imp_solve_restart_serial",
     input_file="{0}/tests/thermal_conduction/dyn_imp_solve_restart.lua".format(serac_input_files_dir))
 
 tolerance_test(name="dyn_imp_solve_restart_parallel",
-    input_file="{0}/tests/thermal_conduction/dyn_imp_solve_restart.lua".format(serac_input_files_dir)
+    input_file="{0}/tests/thermal_conduction/dyn_imp_solve_restart.lua".format(serac_input_files_dir),
     num_mpi_tasks=2)
 

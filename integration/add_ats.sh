@@ -86,7 +86,7 @@ for _type in ${TYPES[@]} ; do
         echo "    input_file=\"${INPUT_FILE}\".format(serac_input_files_dir))" >> $ATS_FILE
         echo "" >> $ATS_FILE
         echo "tolerance_test(name=\"${NAME_PARALLEL}\"," >> $ATS_FILE
-        echo "    input_file=\"${INPUT_FILE}\".format(serac_input_files_dir)" >> $ATS_FILE
+        echo "    input_file=\"${INPUT_FILE}\".format(serac_input_files_dir)," >> $ATS_FILE
         echo "    num_mpi_tasks=2)" >> $ATS_FILE
         echo "" >> $ATS_FILE
 

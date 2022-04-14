@@ -9,6 +9,6 @@ tolerance_test(name="dyn_exp_solve_serial",
     input_file="{0}/tests/thermal_conduction/dyn_exp_solve.lua".format(serac_input_files_dir))
 
 tolerance_test(name="dyn_exp_solve_parallel",
-    input_file="{0}/tests/thermal_conduction/dyn_exp_solve.lua".format(serac_input_files_dir)
+    input_file="{0}/tests/thermal_conduction/dyn_exp_solve.lua".format(serac_input_files_dir),
     num_mpi_tasks=2)
 
