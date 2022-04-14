@@ -1,4 +1,4 @@
-##############################################################################
+############################################################################
 # Copyright (c) 2019-2022, Lawrence Livermore National Security, LLC and
 # other Serac Project Developers. See the top-level COPYRIGHT file for details.
 #
@@ -74,7 +74,6 @@ for _type in ${TYPES[@]} ; do
         NAME_SERIAL="${t}_serial"
         NAME_PARALLEL="${t}_parallel"
         INPUT_FILE="{0}/tests/${_type}/${t}.lua"
-        TOLERANCE_FILE="{0}/tolerance_default.json"
 
         echo "##############################################################################" > $ATS_FILE
         echo "# Copyright (c) 2019-2022, Lawrence Livermore National Security, LLC and" >> $ATS_FILE
@@ -84,14 +83,11 @@ for _type in ${TYPES[@]} ; do
         echo "##############################################################################" >> $ATS_FILE
         echo "" >> $ATS_FILE
         echo "tolerance_test(name=\"${NAME_SERIAL}\"," >> $ATS_FILE
-        echo "    input_file=\"${INPUT_FILE}\".format(serac_input_files_dir)," >> $ATS_FILE
-        echo "    num_mpi_tasks=1," >> $ATS_FILE
-        echo "    tolerance=\"${TOLERANCE_FILE}\".format(serac_tolerance_json))" >> $ATS_FILE
+        echo "    input_file=\"${INPUT_FILE}\".format(serac_input_files_dir))" >> $ATS_FILE
         echo "" >> $ATS_FILE
         echo "tolerance_test(name=\"${NAME_PARALLEL}\"," >> $ATS_FILE
-        echo "    input_file=\"${INPUT_FILE}\".format(serac_input_files_dir)," >> $ATS_FILE
-        echo "    num_mpi_tasks=2," >> $ATS_FILE
-        echo "    tolerance=\"${TOLERANCE_FILE}\".format(serac_tolerance_json))" >> $ATS_FILE
+        echo "    input_file=\"${INPUT_FILE}\".format(serac_input_files_dir)" >> $ATS_FILE
+        echo "    num_mpi_tasks=2)" >> $ATS_FILE
         echo "" >> $ATS_FILE
 
         # Go back to data/input_files/tests for more lua files
