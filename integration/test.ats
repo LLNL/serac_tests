@@ -29,11 +29,14 @@ for var in ["ATS_SERAC_BIN_DIR", "ATS_SERAC_REPO_DIR", "ATS_SERAC_REBASELINE"]:
 serac_bin_dir = os.environ.get("ATS_SERAC_BIN_DIR")
 serac_repo_dir = os.environ.get("ATS_SERAC_REPO_DIR")
 should_rebaseline = bool(int(os.environ.get("ATS_SERAC_REBASELINE")))
-serac_integration_test_dir = os.path.join(serac_repo_dir, "tests", "integration")
 
 #
 # Add variables to be used in individually sourced test files with define()
 #
+
+# Path to integration tests
+serac_integration_test_dir = os.path.join(serac_repo_dir, "tests", "integration")
+define(serac_integration_test_dir=serac_integration_test_dir)
 
 # Path to serac driver
 serac_path = os.path.join(serac_bin_dir, "serac")
@@ -50,10 +53,6 @@ define(serac_test_scripts_dir=serac_test_scripts_dir)
 # Tolerance checker path
 serac_tolerance_checker = os.path.join(serac_test_scripts_dir, "tolerance_test.py")
 define(serac_tolerance_checker=serac_tolerance_checker)
-
-# Tolerance json file(s) directory
-serac_tolerance_json = os.path.join(serac_integration_test_dir, "tolerances")
-define(serac_tolerance_json=serac_tolerance_json)
 
 #
 # Wrapper for ATS's test()/testif()
@@ -74,14 +73,15 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
         The number of MPI tasks (default is 1)
     tolerance : str, optional
         The allowed tolerance in test results (default is 0.00001)
+        Note: If using options 2 or 3 a "default" value is required unless you've specified all
+              parameters
         Three options:
             1.) Either single value such as 0.00001
             2.) Multiple values in this format: default:0.1,velocity:0.22
-            3.) A JSON file containing tolerances. (Located in tests/integration/tolerances)
-                Only the JSON file name is required (Example: tolerances_default.json)
+            3.) Path to a tolerance JSON file
 
     Note: Paths in this function are relative to where the function is called from
-          not this file.
+          not this file
     # _serac_tolerance_test_end
     """
 
@@ -103,6 +103,7 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
             baseline_summary_file, test_summary_file)
 
         if ".json" in str(tolerance):
+            print("tf: {0}".format(tolerance))
             checker_args += " --tolerance-file={0}".format(tolerance)
         else:
             checker_args += " --tolerance={0}".format(tolerance)
