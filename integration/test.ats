@@ -103,7 +103,6 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
             baseline_summary_file, test_summary_file)
 
         if ".json" in str(tolerance):
-            print("tf: {0}".format(tolerance))
             checker_args += " --tolerance-file={0}".format(tolerance)
         else:
             checker_args += " --tolerance={0}".format(tolerance)
