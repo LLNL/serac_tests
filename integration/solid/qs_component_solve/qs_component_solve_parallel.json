@@ -1,7 +1,7 @@
 
 {
-  "user_name": "meemee",
-  "host_name": "quartz46",
+  "user_name": "bramwell",
+  "host_name": "heathfield",
   "mpi_rank_count": 2,
   "curves": 
   {
@@ -17,12 +17,12 @@
     },
     "displacement": 
     {
-      "l1norms": 1.67762690120102e+15,
-      "l2norms": 2992425832729.72,
-      "linfnorms": 8557111938.00971,
-      "avgs": -1228677721.5092,
-      "mins": -9122726635.85441,
-      "maxs": 2770127722.55544
+      "l1norms": 0.00455900429640333,
+      "l2norms": 0.00549163068530154,
+      "linfnorms": 0.0106268021886555,
+      "avgs": -0.00222106331877332,
+      "mins": -0.01,
+      "maxs": 0.00411557193521575
     },
     "adjoint_displacement": 
     {
