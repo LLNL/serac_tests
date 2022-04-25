@@ -29,11 +29,14 @@ for var in ["ATS_SERAC_BIN_DIR", "ATS_SERAC_REPO_DIR", "ATS_SERAC_REBASELINE"]:
 serac_bin_dir = os.environ.get("ATS_SERAC_BIN_DIR")
 serac_repo_dir = os.environ.get("ATS_SERAC_REPO_DIR")
 should_rebaseline = bool(int(os.environ.get("ATS_SERAC_REBASELINE")))
-serac_integration_test_dir = os.path.join(serac_repo_dir, "tests", "integration")
 
 #
 # Add variables to be used in individually sourced test files with define()
 #
+
+# Path to integration tests
+serac_integration_test_dir = os.path.join(serac_repo_dir, "tests", "integration")
+define(serac_integration_test_dir=serac_integration_test_dir)
 
 # Path to serac driver
 serac_path = os.path.join(serac_bin_dir, "serac")
@@ -68,11 +71,17 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
         Path to the input file
     num_mpi_tasks : int, optional
         The number of MPI tasks (default is 1)
-    tolerance : int, optional
+    tolerance : str, optional
         The allowed tolerance in test results (default is 0.00001)
+        Note: If using options 2 or 3 a "default" value is required unless you've specified all
+              parameters
+        Three options:
+            1.) Either single value such as 0.00001
+            2.) Multiple values in this format: default:0.1,velocity:0.22
+            3.) Path to a tolerance JSON file
 
     Note: Paths in this function are relative to where the function is called from
-          not this file.
+          not this file
     # _serac_tolerance_test_end
     """
 
@@ -89,10 +98,16 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001):
             label=name,
             np=num_mpi_tasks)
 
-        # Add checker for driver test
+        # Add checker args
         checker_args  = "--baseline={0} --test={1}".format(
             baseline_summary_file, test_summary_file)
-        checker_args += " --tolerance={0}".format(tolerance)
+
+        if ".json" in str(tolerance):
+            checker_args += " --tolerance-file={0}".format(tolerance)
+        else:
+            checker_args += " --tolerance={0}".format(tolerance)
+
+        # Add checker for driver test
         my_checker = testif(
             my_test,
             executable=serac_tolerance_checker,
