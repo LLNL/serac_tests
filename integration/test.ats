@@ -9,6 +9,8 @@ import glob
 import os
 import shutil
 import sys
+import json
+import importlib
 
 glue(independent=True)
 
@@ -53,6 +55,32 @@ define(serac_test_scripts_dir=serac_test_scripts_dir)
 # Tolerance checker path
 serac_tolerance_checker = os.path.join(serac_test_scripts_dir, "tolerance_test.py")
 define(serac_tolerance_checker=serac_tolerance_checker)
+
+#
+# Add variables based on a current platform's configuration file
+#
+
+if "SYS_TYPE" in os.environ:
+    platform_name = os.environ["SYS_TYPE"]
+else:
+    platform_name = socket.gethostname().rstrip('1234567890')
+
+# Read/ set configs from file
+serac_config_json = os.path.join(serac_repo_dir, "configs", "{0}.json".format(platform_name))
+if os.path.exists(serac_config_json):
+    with open(serac_config_json) as config_file:
+        config_dict = json.load(config_file)
+    serac_cuda_enabled = config_dict["CUDA"]
+else:
+    # Print warning and set default configs
+    print("Warning: No config file created for current platform: {0}".format(platform_name))
+    print("         Will be setting default configs")
+    print("         Create a configuration file in {0}".format(serac_config_json))
+    serac_cuda_enabled = False
+
+define(serac_cuda_enabled=serac_cuda_enabled)
+
+print("Cuda enabled: {0}".format(serac_cuda_enabled))
 
 #
 # Wrapper for ATS's test()/testif()
