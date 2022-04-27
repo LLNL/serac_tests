@@ -12,6 +12,4 @@ if serac_cuda_enabled:
     tolerance_test(name="static_amgx_solve_parallel",
         input_file="{0}/tests/thermal_conduction/static_amgx_solve.lua".format(serac_input_files_dir),
         num_mpi_tasks=2)
-else:
-    print("Skipping static_amgx_solve")
 
