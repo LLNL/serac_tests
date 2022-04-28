@@ -79,7 +79,8 @@ else:
 
 define(serac_cuda_enabled=serac_cuda_enabled)
 
-print("Cuda enabled: {0}".format(serac_cuda_enabled))
+print("Configuration set for {0}:".format(platform_name))
+print(" - Cuda enabled: {0}".format(serac_cuda_enabled))
 
 #
 # Wrapper for ATS's test()/testif()
