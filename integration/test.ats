@@ -65,7 +65,7 @@ else:
     platform_name = socket.gethostname().rstrip('1234567890')
 
 # Read/ set configs from file
-serac_config_json = os.path.join(serac_repo_dir, "configs", "{0}.json".format(platform_name))
+serac_config_json = os.path.join(serac_repo_dir, "ats-config", "{0}.json".format(platform_name))
 if os.path.exists(serac_config_json):
     with open(serac_config_json) as config_file:
         config_dict = json.load(config_file)
