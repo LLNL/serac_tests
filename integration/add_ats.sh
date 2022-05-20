@@ -36,18 +36,12 @@ cd ${INPUT_DIR}
 for _type in ${TYPES[@]} ; do
 
     # For each test in directory "t"
-    cd "./${_type}"
+    cd "${INPUT_DIR}/${_type}"
+
     for t in $(ls --color=no) ; do
 
         # Remove .lua from file name
         t=$(echo $t | awk -F "." '{print $1}')
-
-        # Skip tests that currently fail
-        if [ $t == "dyn_amgx_solve" ] ||
-           [ $t == "static_amgx_solve" ] ; then
-            echo "Skipping $t!"
-            continue
-        fi
 
         # Go back to tests/integration
         cd ${ORIG_DIR}
