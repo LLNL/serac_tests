@@ -21,7 +21,7 @@ glue(keep=True)
 #
 
 # Check for required environment variables
-for var in ["ATS_SERAC_BIN_DIR", "ATS_SERAC_REPO_DIR", "ATS_SERAC_REBASELINE"]:
+for var in ["ATS_SERAC_BIN_DIR", "ATS_SERAC_REPO_DIR", "ATS_SERAC_BASELINE"]:
     if not os.environ.get(var):
         print("ERROR: Required environment variable not found: {0}".format(var))
         sys.exit(1)
@@ -31,7 +31,6 @@ serac_bin_dir = os.environ.get("ATS_SERAC_BIN_DIR")
 serac_repo_dir = os.environ.get("ATS_SERAC_REPO_DIR")
 
 # Flags
-should_rebaseline = bool(int(os.environ.get("ATS_SERAC_REBASELINE")))
 should_baseline = bool(int(os.environ.get("ATS_SERAC_BASELINE")))
 
 #
@@ -139,53 +138,71 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001,
     if ".json" in str(tolerance):
         tolerance_arg = "--tolerance-file={0}".format(tolerance)
 
-    # Run serac normally
-    normal_test_args = "-i {0} -o {1}".format(input_file, normal_output_dir)
-    my_normal_test = test(
-        executable=serac_path,
-        clas=normal_test_args,
-        label=name,
-        np=num_mpi_tasks)
-
-    # Tolerance test of normal baseline vs normal test
-    normal_checker_args = "--baseline={0} --test={1} {2}".format(
-        normal_baseline_file, normal_test_file, tolerance_arg)
-    my_normal_checker = testif(
-        my_normal_test,
-        executable=serac_tolerance_checker,
-        clas=normal_checker_args,
-        label=name,
-        nosrun=True)
-
-    if restart_cycle is not None:
-        # Copy normal serac output to restart location
-        copy_args = "{0} {1}".format(normal_output_dir, restart_output_dir)
-        my_copy = testif(
-            my_normal_checker,
+    if should_baseline:
+        # Copy pre-existing normal serac summary file to baseline location
+        copy_args = "{0} {1}".format(normal_test_file, normal_baseline_file)
+        test(
             executable=serac_copy,
             clas=copy_args,
             label=name,
             nosrun=True)
 
-        # Run serac with restart option
-        restart_test_args = "-i {0} -o {1} -c {2}".format(input_file,
-            restart_output_dir, restart_cycle)
-        my_restart_test = testif(
-            my_copy,
+        # Copy pre-existing restart serac summary file to baseline location
+        if restart_cycle is not None:
+            copy_args = "{0} {1}".format(restart_test_file, restart_baseline_file)
+            test(
+                executable=serac_copy,
+                clas=copy_args,
+                label="{0}_restart_{1}".format(name, restart_cycle),
+                nosrun=True)
+    else:
+        # Run serac normally
+        normal_test_args = "-i {0} -o {1}".format(input_file, normal_output_dir)
+        my_normal_test = test(
             executable=serac_path,
-            clas=restart_test_args,
-            label="{0}_restart_{1}".format(name, restart_cycle),
+            clas=normal_test_args,
+            label=name,
             np=num_mpi_tasks)
 
-        # Tolerance test of restart baseline vs restart test
-        restart_checker_args = "--baseline={0} --test={1} {2}".format(
-            restart_baseline_file, restart_test_file, tolerance_arg)
-        my_restart_checker = testif(
-            my_restart_test,
+        # Tolerance test of normal baseline vs normal test
+        normal_checker_args = "--baseline={0} --test={1} {2}".format(
+            normal_baseline_file, normal_test_file, tolerance_arg)
+        my_normal_checker = testif(
+            my_normal_test,
             executable=serac_tolerance_checker,
-            clas=restart_checker_args,
+            clas=normal_checker_args,
             label=name,
             nosrun=True)
+
+        if restart_cycle is not None:
+            # Copy normal serac output to restart location
+            copy_args = "{0} {1}".format(normal_output_dir, restart_output_dir)
+            my_copy = testif(
+                my_normal_checker,
+                executable=serac_copy,
+                clas=copy_args,
+                label=name,
+                nosrun=True)
+
+            # Run serac with restart option
+            restart_test_args = "-i {0} -o {1} -c {2}".format(input_file,
+                restart_output_dir, restart_cycle)
+            my_restart_test = testif(
+                my_copy,
+                executable=serac_path,
+                clas=restart_test_args,
+                label="{0}_restart_{1}".format(name, restart_cycle),
+                np=num_mpi_tasks)
+
+            # Tolerance test of restart baseline vs restart test
+            restart_checker_args = "--baseline={0} --test={1} {2}".format(
+                restart_baseline_file, restart_test_file, tolerance_arg)
+            my_restart_checker = testif(
+                my_restart_test,
+                executable=serac_tolerance_checker,
+                clas=restart_checker_args,
+                label=name,
+                nosrun=True)
 
 define(tolerance_test=tolerance_test)
 
