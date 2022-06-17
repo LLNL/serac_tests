@@ -127,87 +127,65 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001,
 
     # Set normal test variables
     normal_output_dir    = os.path.abspath("{0}_output".format(name))
-    normal_test_file     = os.path.abspath("{0}/summary.json".format(normal_output_dir))
+    normal_test_file     = os.path.join(normal_output_dir, "summary.json")
     normal_baseline_file = os.path.abspath("{0}.json".format(name))
 
     # Set restart test variables
     restart_output_dir    = os.path.abspath("{0}_output_restart_{1}".format(name, restart_cycle))
-    restart_test_file     = os.path.abspath("{0}/summary.json".format(restart_output_dir))
+    restart_test_file     = os.path.join(restart_output_dir, "summary.json")
     restart_baseline_file = os.path.abspath("{0}_restart_{1}.json".format(name, restart_cycle))
-
-    # chapman39 TODO remove these prints
-    if restart_cycle is not None: 
-        print("restart_output_dir: {0}\n".format(restart_output_dir))
-        print("restart_test_file: {0}\n".format(restart_test_file))
-        print("restart_baseline_file: {0}\n".format(restart_baseline_file))
 
     tolerance_arg = "--tolerance={0}".format(tolerance)
     if ".json" in str(tolerance):
         tolerance_arg = "--tolerance-file={0}".format(tolerance)
 
-    if not should_rebaseline:
-        # Run serac normally
-        normal_test_args = "-i {0} -o {1}".format(input_file, normal_output_dir)
-        my_normal_test = test(
-            executable=serac_path,
-            clas=normal_test_args,
-            label=name,
-            np=num_mpi_tasks)
+    # Run serac normally
+    normal_test_args = "-i {0} -o {1}".format(input_file, normal_output_dir)
+    my_normal_test = test(
+        executable=serac_path,
+        clas=normal_test_args,
+        label=name,
+        np=num_mpi_tasks)
 
-    if should_baseline or should_rebaseline:
-        # chapman39 TODO create either a python function or bash script, and use
-        # testif() instead of below
+    # Tolerance test of normal baseline vs normal test
+    normal_checker_args = "--baseline={0} --test={1} {2}".format(
+        normal_baseline_file, normal_test_file, tolerance_arg)
+    my_normal_checker = testif(
+        my_normal_test,
+        executable=serac_tolerance_checker,
+        clas=normal_checker_args,
+        label=name,
+        nosrun=True)
 
-        # Create baseline file
-        if os.path.exists(normal_test_file):
-            print("Rebaselining {0}".format(name))
-            shutil.copyfile(normal_test_file, normal_baseline_file)
-        else:
-            print("Warning: tried to copy test file that doesn't exist:\n{0}".format(
-                normal_test_file))
-    else:
-        # Tolerance test of normal baseline vs normal test
-        normal_checker_args = "--baseline={0} --test={1} {2}".format(
-            normal_baseline_file, normal_test_file, tolerance_arg)
-        my_normal_checker = testif(
-            my_normal_test,
-            executable=serac_tolerance_checker,
-            clas=normal_checker_args,
+    if restart_cycle is not None:
+        # Copy normal serac output to restart location
+        copy_args = "{0} {1}".format(normal_output_dir, restart_output_dir)
+        my_copy = testif(
+            my_normal_checker,
+            executable=serac_copy,
+            clas=copy_args,
             label=name,
             nosrun=True)
 
-        if restart_cycle is not None:
-            # Copy normal serac output to restart location
-            print("Copy normal serac output to restart location")
-            copy_args = "{0} {1}".format(normal_output_dir, restart_output_dir)
-            my_copy = testif(
-                my_normal_checker,
-                executable=serac_copy,
-                clas=copy_args,
-                label="copy_{0}_to_restart".format(name),
-                nosrun=True)
+        # Run serac with restart option
+        restart_test_args = "-i {0} -o {1} -c {2}".format(input_file,
+            restart_output_dir, restart_cycle)
+        my_restart_test = testif(
+            my_copy,
+            executable=serac_path,
+            clas=restart_test_args,
+            label="{0}_restart_{1}".format(name, restart_cycle),
+            np=num_mpi_tasks)
 
-            # Run serac with restart option
-            print("Run serac with restart option")
-            restart_test_args = "-i {0} -o {1} -c {2}".format(input_file,
-                restart_output_dir, restart_cycle)
-            my_restart_test = testif(
-                my_copy,
-                executable=serac_path,
-                clas=restart_test_args,
-                label="{0}_restart_{1}".format(name, restart_cycle),
-                np=num_mpi_tasks)
-
-            # Tolerance test of restart baseline vs restart test
-            print("Tolerance test of restart baseline vs restart test")
-            restart_checker_args = "--baseline={0} --test={1} {2}".format(
-                restart_baseline_file, restart_test_file, tolerance_arg)
-            my_restart_checker = testif(
-                my_restart_test,
-                executable=serac_tolerance_checker,
-                clas=restart_checker_args,
-                label=name,
-                nosrun=True)
+        # Tolerance test of restart baseline vs restart test
+        restart_checker_args = "--baseline={0} --test={1} {2}".format(
+            restart_baseline_file, restart_test_file, tolerance_arg)
+        my_restart_checker = testif(
+            my_restart_test,
+            executable=serac_tolerance_checker,
+            clas=restart_checker_args,
+            label=name,
+            nosrun=True)
 
 define(tolerance_test=tolerance_test)
 
