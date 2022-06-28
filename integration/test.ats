@@ -112,12 +112,18 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001,
         The number of MPI tasks (default is 1)
     tolerance : str, optional
         The allowed tolerance in test results (default is 0.00001)
-        Note: If using options 2 or 3 a "default" value is required unless you've specified all
-              parameters
+        Note: If using options 2 or 3 a "default" value is required unless you've
+              specified all parameters
         Three options:
             1.) Either single value such as 0.00001
             2.) Multiple values in this format: default:0.1,velocity:0.22
             3.) Path to a tolerance JSON file
+    restart_cycle: int, optional
+        The cycle to run from and test
+        Note: If given a value, it will perform a tolerance test for both the normal
+              serac run and also the restart serac run using the specified cycle
+        Note: If ats.sh has the baseline option set, it will copy the restart's summary
+              file to the restart baseline location.
 
     Note: Paths in this function are relative to where the function is called from
           not this file
