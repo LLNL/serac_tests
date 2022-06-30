@@ -1,7 +1,5 @@
 
 {
-  "user_name": "bramwell",
-  "host_name": "heathfield",
   "mpi_rank_count": 1,
   "curves": 
   {
@@ -22,7 +20,7 @@
       "linfnorms": 0.0106268021886555,
       "avgs": -0.00222106331877332,
       "mins": -0.01,
-      "maxs": 0.00411557193521573
+      "maxs": 0.00411557193521574
     },
     "adjoint_displacement": 
     {
