@@ -1,15 +1,13 @@
 
 {
-  "user_name": "meemee",
-  "host_name": "quartz46",
   "mpi_rank_count": 2,
   "curves": 
   {
     "t": 1.0,
     "temperature": 
     {
-      "l1norms": 2.74348481177359,
-      "l2norms": 2.34242814693369,
+      "l1norms": 2.74348481177362,
+      "l2norms": 2.3424281469337,
       "linfnorms": 2.0,
       "avgs": 2.0,
       "mins": 2.0,
@@ -26,10 +24,10 @@
     },
     "displacement": 
     {
-      "l1norms": 0.146409257587393,
+      "l1norms": 0.146409501279414,
       "l2norms": 0.13013498983435,
-      "linfnorms": 0.181605496401861,
-      "avgs": 0.0555555951650856,
+      "linfnorms": 0.187027861671587,
+      "avgs": 0.0555555951650855,
       "mins": 0.0,
       "maxs": 0.111111190330171
     }

@@ -8,6 +8,7 @@
 import glob
 import os
 import shutil
+import socket
 import sys
 import json
 
@@ -217,7 +218,5 @@ define(tolerance_test=tolerance_test)
 #
 
 test_files = glob.glob(os.path.join(serac_integration_test_dir, "*/*", "*.ats"))
-print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
 for test_file in test_files:
     source(test_file)
-print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
