@@ -35,7 +35,6 @@ serac_repo_dir = os.environ.get("ATS_SERAC_REPO_DIR")
 serac_baseline = os.environ.get("ATS_SERAC_BASELINE")
 if "," in serac_baseline:
     serac_baseline = serac_baseline.split(",")
-should_baseline = serac_baseline != "none"
 
 #
 # Add variables to be used in individually sourced test files with define()
@@ -148,25 +147,29 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001,
     if ".json" in str(tolerance):
         tolerance_arg = "--tolerance-file={0}".format(tolerance)
 
-    # TODO chapman39 add all, none, list logic for individual baselining
+    # If should baseline...
+    if serac_baseline != "none":
+        if serac_baseline == "all" or name in serac_baseline:
+            # Remove test from list
+            if name in serac_baseline:
+                serac_baseline.remove(name)
 
-    if should_baseline:
-        # Copy pre-existing normal serac summary file to baseline location
-        copy_args = "{0} {1}".format(normal_test_file, normal_baseline_file)
-        test(
-            executable=serac_copy,
-            clas=copy_args,
-            label=name,
-            nosrun=True)
-
-        # Copy pre-existing restart serac summary file to baseline location
-        if restart_cycle is not None:
-            copy_args = "{0} {1}".format(restart_test_file, restart_baseline_file)
+            # Copy pre-existing normal serac summary file to baseline location
+            copy_args = "{0} {1}".format(normal_test_file, normal_baseline_file)
             test(
                 executable=serac_copy,
                 clas=copy_args,
-                label="{0}_restart_{1}".format(name, restart_cycle),
+                label=name,
                 nosrun=True)
+
+            # Copy pre-existing restart serac summary file to baseline location
+            if restart_cycle is not None:
+                copy_args = "{0} {1}".format(restart_test_file, restart_baseline_file)
+                test(
+                    executable=serac_copy,
+                    clas=copy_args,
+                    label="{0}_restart_{1}".format(name, restart_cycle),
+                    nosrun=True)
     else:
         # Run serac normally
         normal_test_args = "-i {0} -o {1}".format(input_file, normal_output_dir)
@@ -225,3 +228,8 @@ define(tolerance_test=tolerance_test)
 test_files = glob.glob(os.path.join(serac_integration_test_dir, "*/*", "*.ats"))
 for test_file in test_files:
     source(test_file)
+
+# Check if skipped a test to baseline
+if serac_baseline != "none" and serac_baseline != "all":
+    for test_name in serac_baseline:
+        print("Warning: could not find test \"{0}\"".format(test_name))
