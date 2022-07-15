@@ -32,7 +32,10 @@ serac_bin_dir = os.environ.get("ATS_SERAC_BIN_DIR")
 serac_repo_dir = os.environ.get("ATS_SERAC_REPO_DIR")
 
 # Flags
-should_baseline = bool(int(os.environ.get("ATS_SERAC_BASELINE")))
+serac_baseline = os.environ.get("ATS_SERAC_BASELINE")
+if "," in serac_baseline:
+    serac_baseline = serac_baseline.split(",")
+should_baseline = serac_baseline != "none"
 
 #
 # Add variables to be used in individually sourced test files with define()
@@ -144,6 +147,8 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001,
     tolerance_arg = "--tolerance={0}".format(tolerance)
     if ".json" in str(tolerance):
         tolerance_arg = "--tolerance-file={0}".format(tolerance)
+
+    # TODO chapman39 add all, none, list logic for individual baselining
 
     if should_baseline:
         # Copy pre-existing normal serac summary file to baseline location
