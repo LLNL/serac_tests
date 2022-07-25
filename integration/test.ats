@@ -232,4 +232,4 @@ for test_file in test_files:
 # Check if skipped a test to baseline
 if serac_baseline != "none" and serac_baseline != "all":
     for test_name in serac_baseline:
-        print("Warning: could not find test \"{0}\"".format(test_name))
+        print("Warning: Could not find test \"{0}\" to baseline.".format(test_name))
