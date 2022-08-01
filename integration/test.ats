@@ -229,7 +229,7 @@ test_files = glob.glob(os.path.join(serac_integration_test_dir, "*/*", "*.ats"))
 for test_file in test_files:
     source(test_file)
 
-# Check if skipped a test to baseline
+# Check if any tests indicated for baseline by user were not baselined
 if serac_baseline != "none" and serac_baseline != "all":
     for test_name in serac_baseline:
         print("Warning: Could not find test \"{0}\" to baseline.".format(test_name))
