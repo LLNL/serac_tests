@@ -150,7 +150,7 @@ def tolerance_test(name, input_file, num_mpi_tasks=1, tolerance=0.00001,
     # If should baseline...
     if serac_baseline != "none":
         if serac_baseline == "all" or name in serac_baseline:
-            # Remove test from list
+            # Remove test from list as they are baselined
             if name in serac_baseline:
                 serac_baseline.remove(name)
 
