@@ -5,8 +5,9 @@
 # SPDX-License-Identifier: (BSD-3-Clause)
 ##############################################################################
 
-tolerance_test(name="qs_attribute_solve_serial",
-    input_file="{0}/tests/solid/qs_attribute_solve.lua".format(serac_input_files_dir))
+#TODO: reenable in new physics module
+#tolerance_test(name="qs_attribute_solve_serial",
+#    input_file="{0}/tests/solid/qs_attribute_solve.lua".format(serac_input_files_dir))
 
 tolerance_test(name="qs_attribute_solve_parallel",
     input_file="{0}/tests/solid/qs_attribute_solve.lua".format(serac_input_files_dir),
