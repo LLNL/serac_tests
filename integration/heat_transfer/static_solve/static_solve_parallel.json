@@ -4,14 +4,14 @@
   "curves": 
   {
     "t": 1.0,
-    "temperature": 
+    "serac_temperature": 
     {
-      "l1norms": 4.03939012963783,
-      "l2norms": 1.99715931246521,
-      "linfnorms": 1.0,
-      "avgs": 0.988446576455893,
-      "mins": 0.968655998937587,
-      "maxs": 1.0
+      "l1norms": 4.09106465190445,
+      "l2norms": 2.02263806928017,
+      "linfnorms": 1.00000552808292,
+      "avgs": 1.00000000579235,
+      "mins": 0.99999417342225,
+      "maxs": 1.00000562035364
     }
   },
   "sidre_group_name": "serac_summary"
