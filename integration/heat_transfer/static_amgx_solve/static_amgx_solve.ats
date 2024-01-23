@@ -5,10 +5,11 @@
 # SPDX-License-Identifier: (BSD-3-Clause)
 ##############################################################################
 
-tolerance_test(name="static_solve_multiple_bcs_serial",
-    input_file="{0}/tests/thermal_conduction/static_solve_multiple_bcs.lua".format(serac_input_files_dir))
+if serac_cuda_enabled:
+    tolerance_test(name="static_amgx_solve_serial",
+        input_file="{0}/tests/heat_transfer/static_amgx_solve.lua".format(serac_input_files_dir))
 
-tolerance_test(name="static_solve_multiple_bcs_parallel",
-    input_file="{0}/tests/thermal_conduction/static_solve_multiple_bcs.lua".format(serac_input_files_dir),
-    num_mpi_tasks=2)
+    tolerance_test(name="static_amgx_solve_parallel",
+        input_file="{0}/tests/heat_transfer/static_amgx_solve.lua".format(serac_input_files_dir),
+        num_mpi_tasks=2)
 
