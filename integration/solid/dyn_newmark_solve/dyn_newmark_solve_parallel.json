@@ -4,16 +4,7 @@
   "curves": 
   {
     "t": 0.01,
-    "velocity": 
-    {
-      "l1norms": 8.0,
-      "l2norms": 2.82842712474619,
-      "linfnorms": 1.0,
-      "avgs": 0.5,
-      "mins": 0.0,
-      "maxs": 1.0
-    },
-    "displacement": 
+    "serac_displacement": 
     {
       "l1norms": 0.08,
       "l2norms": 0.0282842712474619,
@@ -22,7 +13,16 @@
       "mins": 0.0,
       "maxs": 0.01
     },
-    "adjoint_displacement": 
+    "serac_velocity": 
+    {
+      "l1norms": 8.0,
+      "l2norms": 2.82842712474619,
+      "linfnorms": 1.0,
+      "avgs": 0.5,
+      "mins": 0.0,
+      "maxs": 1.0
+    },
+    "serac_acceleration": 
     {
       "l1norms": 0.0,
       "l2norms": 0.0,
