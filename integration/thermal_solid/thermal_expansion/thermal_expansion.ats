@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: (BSD-3-Clause)
 ##############################################################################
 
-# TODO: re-enable after thermal solid lua is updated
+# TODO: Re-enable after thermal solid lua is updated
 # https://github.com/LLNL/serac/issues/1066
 
 # tolerance_test(name="thermal_expansion_serial",

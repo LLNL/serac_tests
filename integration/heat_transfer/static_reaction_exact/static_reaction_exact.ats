@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: (BSD-3-Clause)
 ##############################################################################
 
-# TODO: re-enable after 'source' is implemented for input files
+# TODO: Re-enable after 'source' is implemented for input files
 # https://github.com/LLNL/serac/issues/1065
 
 # tolerance_test(name="static_reaction_exact_serial",

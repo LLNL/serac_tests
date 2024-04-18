@@ -5,7 +5,9 @@
 # SPDX-License-Identifier: (BSD-3-Clause)
 ##############################################################################
 
-#TODO: reenable in new physics module
+# TODO: Re-enable in new physics module
+# https://github.com/LLNL/serac_tests/issues/19
+
 #tolerance_test(name="qs_attribute_solve_serial",
 #    input_file="{0}/tests/solid/qs_attribute_solve.lua".format(serac_input_files_dir))
 
