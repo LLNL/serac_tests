@@ -4,7 +4,7 @@
   "curves": 
   {
     "t": 1.0,
-    "temperature": 
+    "serac_temperature": 
     {
       "l1norms": 4.03939012963791,
       "l2norms": 1.9971593124652,
