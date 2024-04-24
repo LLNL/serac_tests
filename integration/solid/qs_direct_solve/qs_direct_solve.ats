@@ -5,10 +5,13 @@
 # SPDX-License-Identifier: (BSD-3-Clause)
 ##############################################################################
 
-tolerance_test(name="qs_direct_solve_serial",
-    input_file="{0}/tests/solid/qs_direct_solve.lua".format(serac_input_files_dir))
+# TODO: Re-enable after traction/ pressure is implemented for input files
+# https://github.com/LLNL/serac/issues/1065
 
-tolerance_test(name="qs_direct_solve_parallel",
-    input_file="{0}/tests/solid/qs_direct_solve.lua".format(serac_input_files_dir),
-    num_mpi_tasks=2)
+#tolerance_test(name="qs_direct_solve_serial",
+#    input_file="{0}/tests/solid/qs_direct_solve.lua".format(serac_input_files_dir))
+
+#tolerance_test(name="qs_direct_solve_parallel",
+#    input_file="{0}/tests/solid/qs_direct_solve.lua".format(serac_input_files_dir),
+#    num_mpi_tasks=2)
 
