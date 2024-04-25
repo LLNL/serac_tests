@@ -5,10 +5,13 @@
 # SPDX-License-Identifier: (BSD-3-Clause)
 ##############################################################################
 
-tolerance_test(name="static_reaction_exact_serial",
-    input_file="{0}/tests/heat_transfer/static_reaction_exact.lua".format(serac_input_files_dir))
+# TODO: Re-enable after 'source' is supported
+# https://github.com/LLNL/serac/issues/1065
 
-tolerance_test(name="static_reaction_exact_parallel",
-    input_file="{0}/tests/heat_transfer/static_reaction_exact.lua".format(serac_input_files_dir),
-    num_mpi_tasks=2)
+#tolerance_test(name="static_reaction_exact_serial",
+#    input_file="{0}/tests/heat_transfer/static_reaction_exact.lua".format(serac_input_files_dir))
+
+#tolerance_test(name="static_reaction_exact_parallel",
+#    input_file="{0}/tests/heat_transfer/static_reaction_exact.lua".format(serac_input_files_dir),
+#    num_mpi_tasks=2)
 

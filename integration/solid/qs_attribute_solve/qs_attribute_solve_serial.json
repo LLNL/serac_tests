@@ -4,7 +4,7 @@
   "curves": 
   {
     "t": 1.0,
-    "velocity": 
+    "serac_velocity": 
     {
       "l1norms": 0.0,
       "l2norms": 0.0,
@@ -13,7 +13,7 @@
       "mins": 0.0,
       "maxs": 0.0
     },
-    "displacement": 
+    "serac_displacement": 
     {
       "l1norms": 0.0305176507712669,
       "l2norms": 0.033301151128859,
@@ -21,15 +21,6 @@
       "avgs": -0.00499999999484741,
       "mins": -0.05,
       "maxs": 0.03
-    },
-    "adjoint_displacement": 
-    {
-      "l1norms": 0.0,
-      "l2norms": 0.0,
-      "linfnorms": 0.0,
-      "avgs": 0.0,
-      "mins": 0.0,
-      "maxs": 0.0
     }
   },
   "sidre_group_name": "serac_summary"
