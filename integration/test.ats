@@ -35,6 +35,9 @@ serac_repo_dir = os.environ.get("ATS_SERAC_REPO_DIR")
 serac_baseline = os.environ.get("ATS_SERAC_BASELINE")
 if "," in serac_baseline:
     serac_baseline = serac_baseline.split(",")
+elif serac_baseline != "none" and serac_baseline != "all":
+    # Put baseline in List if single baseline
+    serac_baseline = [serac_baseline]
 
 #
 # Add variables to be used in individually sourced test files with define()
